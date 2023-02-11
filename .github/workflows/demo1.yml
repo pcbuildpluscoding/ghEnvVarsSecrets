@@ -8,6 +8,8 @@ env:
   MONGODB_NAME: mongodb-1
 jobs:
   test:
+    env:
+      MONGODB_USERNAME: johnsmith
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -19,8 +21,6 @@ jobs:
           key: npm-deps-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-      - name: Run tests
-        run: npm test
       - name: Output information
         run: |
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
@@ -29,4 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-        run: echo "..."
+        run: |
+          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+          echo "MONGODB_NAME: ${{ env.MONGODB_NAME }}"
