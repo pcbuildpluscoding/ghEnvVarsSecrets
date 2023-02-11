@@ -9,7 +9,8 @@ env:
 jobs:
   test:
     env:
-      MONGODB_USERNAME: johnsmith
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -24,11 +25,12 @@ jobs:
       - name: Output information
         run: |
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+          echo "MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}"
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Output information
         run: |
-          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+          echo "MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}"
           echo "MONGODB_NAME: ${{ env.MONGODB_NAME }}"
